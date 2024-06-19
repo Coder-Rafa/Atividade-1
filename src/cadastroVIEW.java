@@ -1,8 +1,3 @@
-
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -154,22 +149,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setStatus(status);
         
         ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
-        PreparedStatement statement = null;
-        String sql = "INSERT INTO produtos (nome, valor, status) VALUES (?, ?, ?)";
-
-        try {
-            statement = produtodao.conn.prepareStatement(sql);
-            statement.setString(1, cadastroNome.getText());
-            statement.setInt(2, Integer.parseInt(cadastroValor.getText()));
-            statement.setString(3, "A Venda");
-            statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "O cadastro do produto foi realizado com sucesso!");
-        }
-        catch (SQLException exc) {
-            System.out.println("Cadastro do produto não foi realizado!\nErro ao acessar o banco de dados: \n" + exc.getMessage());
-        }
+        produtodao.cadastrarProduto(cadastroNome.getText(), Integer.parseInt(cadastroValor.getText()));
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed

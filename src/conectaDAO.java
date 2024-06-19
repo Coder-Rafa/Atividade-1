@@ -16,10 +16,9 @@ import javax.swing.JOptionPane;
  * @author Adm
  */
 public class conectaDAO {
+    Connection conn = null;
     
     public Connection connectDB(){
-        Connection conn = null;
-        
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
             
