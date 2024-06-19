@@ -1,6 +1,7 @@
 
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -164,9 +165,10 @@ public class cadastroVIEW extends javax.swing.JFrame {
             statement.setInt(2, Integer.parseInt(cadastroValor.getText()));
             statement.setString(3, "A Venda");
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "O cadastro do produto foi realizado com sucesso!");
         }
         catch (SQLException exc) {
-            System.out.println("Erro ao acessar o banco de dados: \n" + exc.getMessage());
+            System.out.println("Cadastro do produto não foi realizado!\nErro ao acessar o banco de dados: \n" + exc.getMessage());
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
