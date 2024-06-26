@@ -57,11 +57,6 @@ public class ProdutosDAO {
                 produto.setStatus(resultset.getString("status"));
                 listagem.add(produto);
             }
-            if (listagem.size() > 12) {
-                for (int contador = 0; contador < 12; contador++) {
-                    listagem.set(contador, listagem.get(contador));
-                }
-            }
             return listagem;
         }
         catch (Exception exc) {
@@ -73,7 +68,7 @@ public class ProdutosDAO {
     public void venderProduto(ProdutosDTO produto) {
         conn = new conectaDAO().connectDB();
         
-        String sql = "UPDATE produtos SET status = ? WHERE id = ?";
+        String sql = "UPDATE produtos SET `status` = ? WHERE id = ?";
         
         try {
             prep = conn.prepareStatement(sql);
@@ -84,5 +79,30 @@ public class ProdutosDAO {
         catch (SQLException exc) {
             System.out.println("Venda do produto não foi realizada!\nErro ao acessar o banco de dados: \n" + exc.getMessage());
         }
-    }       
+    }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+        conn = new conectaDAO().connectDB();
+        
+        String sql = "SELECT * FROM produtos WHERE `status` = 'Vendido'";
+        
+        try {
+            prep = conn.prepareStatement(sql);
+            resultset = prep.executeQuery();
+            
+            while (resultset.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(resultset.getInt("id"));
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+                listagem.add(produto);
+            }
+            return listagem;
+        }
+        catch (Exception exc) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar informações no banco de dados!\nErro ao acessar o banco de dados: \n" + exc.getMessage());
+            return null;
+        }
+    }
 }
