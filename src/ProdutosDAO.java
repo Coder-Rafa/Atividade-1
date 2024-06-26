@@ -69,9 +69,20 @@ public class ProdutosDAO {
             return null;
         }
     }
-    
-    
-    
         
+    public void venderProduto(ProdutosDTO produto) {
+        conn = new conectaDAO().connectDB();
+        
+        String sql = "UPDATE produtos SET status = ? WHERE id = ?";
+        
+        try {
+            prep = conn.prepareStatement(sql);
+            prep.setString(1, "Vendido");
+            prep.setInt(2, produto.getId());
+            JOptionPane.showMessageDialog(null, "A venda do produto foi realizada!\nStatus do produto atualizado com sucesso!");
+        }
+        catch (SQLException exc) {
+            System.out.println("Venda do produto não foi realizada!\nErro ao acessar o banco de dados: \n" + exc.getMessage());
+        }
+    }       
 }
-
